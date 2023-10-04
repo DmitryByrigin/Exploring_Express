@@ -1,0 +1,72 @@
+1) Установка node.js
+https://nodejs.org/ru
+
+2) Проверка версии Node
+node -v
+
+3) Проверка запуска файла 
+index.js
+let name = 'Dima';
+console.log('Hi, ' + name + '!');
+
+response
+Hi, Dima!
+
+console
+node index.js
+
+4) Инициализация проекта npm
+npm init 
+прописываем только package name, остальное можно пропустить
+создаётся файл package.json
+
+5) Устанавливаем Express
+npm i express
+
+6) Прописываем "type": "module", в package.json для того что бы работали import-ы
+и прописываем главный import
+import express from 'express';
+
+7) Делаем что бы сервер обновлял информацию без презагрузки
+npm i nodemon
+
+package.json
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
+  },
+
+Выключаем сервер Ctrl+C
+Запускаем с помощью команды npm run start:dev
+
+8) jsonwebtoken
+npm i jsonwebtoken
+
+9) Устанавливаем связь с сервером MongoDB
+npm i mongoose
+
+и подключаемся к базе данных 
+import mongoose from 'mongoose';
+
+mongoose
+  .connect('mongodb+srv://admin:admin@cluster0.9rulaij.mongodb.net/?retryWrites=true&w=majority')
+  .then(() => console.log('DB ok'))
+  .catch((err) => console.log('DB error', err));
+
+
+10) Проверка данных от пользователя через express-validator
+npm i express-validator
+
+auth.js
+import { body } from 'express-validator';
+
+export const registerValidation = [
+  body('email', 'Неверный формат почты').isEmail(),
+  body('password', 'Пароль должен быть минимум 5 символов').isLength({ min: 5 }),
+  body('fullName', 'Укажите имя').isLength({ min: 2 }),
+  body('avatarUrl', 'Неверная ссылка на аватарку').optional().isURL(),
+];
+
+11) Шифовка пароля через bcrypt
+npm i bcrypt
+import bcrypt from 'bcrypt'
